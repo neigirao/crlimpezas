@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>CR Serviços e Limpeza trabalha com limpeza de interior de carros, sofá</title>
+    <title>Lavagem de sofá - CR Serviços de Limpeza traz a melhor lavagem de sofá</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Business Target">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
