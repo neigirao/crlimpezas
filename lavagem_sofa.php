@@ -49,7 +49,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="index.php" onClick="_gaq.push(['_trackEvent', 'Clique no menu', 'Home', 'Logo']);">CR Serviços de Limpeza</a>
+            <a class="brand" href="index.php" onClick="_gaq.push(['_trackEvent', 'Clique no menu', 'Landing Sofa', 'Logo']);">CR Serviços de Limpeza</a>
             <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
             
           </div><!-- /.navbar-inner -->
@@ -70,19 +70,19 @@
 
       <div id="myCarousel" class="carousel slide">
         <div class="carousel-inner">
-          <div class="item">
+          <div class="item active">
             <img src="img/landing_sofa/sofa01.jpg" title="lavagem de sofá" alt="lavagem de sofá">
           </div>
           <div class="item">
             <img src="img/landing_sofa/sofa03.jpg" title="lavagem de sofá" alt="lavagem de sofá">
           </div>
-          <div class="item active">
+          <div class="item">
             <img src="img/landing_sofa/sofa04.jpg" title="lavagem de sofá" alt="lavagem de sofá">
           </div>
-          <div class="item active">
+          <div class="item">
             <img src="img/landing_sofa/sofa05.jpg" title="lavagem de sofá" alt="lavagem de sofá">
           </div>
-          <div class="item active">
+          <div class="item">
             <img src="img/landing_sofa/sofa06.jpg" title="lavagem de sofá" alt="lavagem de sofá">
           </div>
         </div>
@@ -258,11 +258,11 @@ Depois de finalizado a <strong>lavagem de sofá a seco</strong>, aconselhamos ma
 
       <!-- FOOTER -->
       <footer>
-        <p class="pull-left"><a href="contato.php" onclick="_gaq.push(['_trackEvent', 'Rodapé', 'Home', 'Orçamento']);">Faça seu orçamento através de nosso site ou ligue</a> (21) 3041-1094 | (21) 8727-1365</p>
+        <p class="pull-left"><a href="contato.php" onclick="_gaq.push(['_trackEvent', 'Rodapé', 'Landing Sofa', 'Orçamento']);">Faça seu orçamento através de nosso site ou ligue</a> (21) 3041-1094 | (21) 8727-1365</p>
         <p class="pull-right">
-          <a href="http://www.orkut.com.br/Main#Community?cmm=123581865" target="_blank" onclick="_gaq.push(['_trackEvent', 'Rodapé', 'Home', 'Orkut']);"><img src="img/ico_orkut.png" alt="Facebook CR Serviços de Limpeza"></a>
+          <a href="http://www.orkut.com.br/Main#Community?cmm=123581865" target="_blank" onclick="_gaq.push(['_trackEvent', 'Rodapé', 'Landing Sofa', 'Orkut']);"><img src="img/ico_orkut.png" alt="Facebook CR Serviços de Limpeza"></a>
           &middot; 
-          <a href="https://www.facebook.com/CrServicosDeLimpeza" target="_blank" onclick="_gaq.push(['_trackEvent', 'Rodapé', 'Home', 'Facebook']);">
+          <a href="https://www.facebook.com/CrServicosDeLimpeza" target="_blank" onclick="_gaq.push(['_trackEvent', 'Rodapé', 'Landing Sofa', 'Facebook']);">
           <img src="img/icon_facebook.png" alt="Orkut CR Serviços de Limpeza"></a>
         </p>
       </footer>
