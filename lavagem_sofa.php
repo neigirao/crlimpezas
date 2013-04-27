@@ -71,25 +71,13 @@
       <div id="myCarousel" class="carousel slide">
         <div class="carousel-inner">
           <div class="item">
-            <img src="http://placehold.it/1200x400" alt="">
-            <div class="carousel-caption">
-              <h4>First Thumbnail label</h4>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            </div>
+            <img src="http://placehold.it/1200x435" alt="">
           </div>
           <div class="item">
-            <img src="http://placehold.it/1300x510" alt="">
-            <div class="carousel-caption">
-              <h4>Second Thumbnail label</h4>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            </div>
+            <img src="http://placehold.it/1200x435" alt="">
           </div>
           <div class="item active">
-            <img src="http://placehold.it/1400x520" alt="">
-            <div class="carousel-caption">
-              <h4>Third Thumbnail label</h4>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            </div>
+            <img src="http://placehold.it/1200x435" alt="">
           </div>
         </div>
         <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
@@ -111,7 +99,7 @@
 Depois de finalizado a <strong>lavagem de sofá a seco</strong>, aconselhamos manter uma boa manutenção preventiva, assim você estará contribuindo para um melhor estilo de vida dos usuários.</p>
         
         <p class="lead"><span class="muted"> Faça seu pedido de orçamento agora:</span></p>
-        
+
        <form name="contato" action="#" method="post">
 
           <div class="control-group preencher">
@@ -285,7 +273,7 @@ Depois de finalizado a <strong>lavagem de sofá a seco</strong>, aconselhamos ma
     <script src="js/bootstrap-carousel.js"></script>
     <script>
       $('.carousel').carousel({
-        interval: 2000
+        interval: 4000
       })
   	  var _gaq = _gaq || [];
   	  _gaq.push(['_setAccount', 'UA-36923842-1']);
