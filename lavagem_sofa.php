@@ -71,13 +71,19 @@
       <div id="myCarousel" class="carousel slide">
         <div class="carousel-inner">
           <div class="item">
-            <img src="http://placehold.it/1200x435" alt="">
+            <img src="img/landing_sofa/sofa01.jpg" title="lavagem de sofá" alt="lavagem de sofá">
           </div>
           <div class="item">
-            <img src="http://placehold.it/1200x435" alt="">
+            <img src="img/landing_sofa/sofa03.jpg" title="lavagem de sofá" alt="lavagem de sofá">
           </div>
           <div class="item active">
-            <img src="http://placehold.it/1200x435" alt="">
+            <img src="img/landing_sofa/sofa04.jpg" title="lavagem de sofá" alt="lavagem de sofá">
+          </div>
+          <div class="item active">
+            <img src="img/landing_sofa/sofa05.jpg" title="lavagem de sofá" alt="lavagem de sofá">
+          </div>
+          <div class="item active">
+            <img src="img/landing_sofa/sofa06.jpg" title="lavagem de sofá" alt="lavagem de sofá">
           </div>
         </div>
         <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
