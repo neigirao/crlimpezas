@@ -1,0 +1,61 @@
+{{extends file='../include/_base_login.tpl'}}
+
+{{block name=config}}
+  {{config_load file="default.conf" section="today"}}
+{{/block}}
+
+{{block name=css}}
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+      .hero-unit {
+		padding: 20px;
+	  }
+    </style>
+{{/block}}
+
+{{block name=body_login}}
+	<div class="hero-unit">
+		{{if $post|@count == 0}}
+			<h2>nenhum orçamento hoje</h2>
+		{{else}}
+			{{if $post|@count == 1}}
+				<h2>{{$post|@count}} orçamento recebido hoje</h2>
+			{{else}}
+				<h2>{{$post|@count}} orçamentos recebidos hoje</h2>
+			{{/if}}
+		{{/if}}
+	</div>
+
+	{{if $post|@count > 0}}
+
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Nome</th>
+					<th>E-mail</th>
+					<th>Status</th>
+					<th>Data Envio</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{foreach from=$post item=item name=loop}}
+					{{assign var=id value=$item->id}}
+					<tr>
+						<td><a href="ordered.php?action=view&id={{$id}}">{{$item->id|string_format:'%1$04d'}}</a>}</td>
+						<td>{{$item->nome_cliente}}</td>
+						<td>{{$item->email_cliente}}</td>
+						<td>{{dao->returnLastStatusById id_pedido=$id}}</td>
+						<td>{{$item->data_envio|date_format:'%d/%m/%Y %H:%M:%S'}}</td>
+					</tr>
+				{{/foreach}}
+			</tbody>
+		</table>
+	{{/if}}
+{{/block}}

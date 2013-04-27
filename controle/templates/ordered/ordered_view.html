@@ -1,0 +1,128 @@
+{{extends file='../include/_base_login.tpl'}}
+
+{{block name=config}}
+  {{config_load file="default.conf" section="ordered"}}
+{{/block}}
+
+{{block name=css}}
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+      .action-status-show.muted:hover{
+        cursor: pointer;
+      }
+      h3{
+        background-color: #f5f5f5;
+        border-top: 1px solid #e5e5e5;
+      }
+    </style>
+{{/block}}
+
+{{block name=body_login}}
+  <ul class="breadcrumb">
+    <li><span class="divider">/</span></li>
+    <li><a href="{{#page#}}">Pedidos</a> <span class="divider">/</span></li>
+    <li class="active">{{$post->id|string_format:'%1$04d'}}</li>
+    {{if $post->clientes_id}}
+      <button type="button" class="btn btn-info btn-mini pull-right action-status-form-show">atualizar status</button>
+    {{/if}}
+  </ul>
+
+  <form action="{{#page#}}" method="POST" class="hidden action-status-form form-horizontal">
+    <h3>atualizar status</h3>
+    <div class="control-group">
+      <label class="control-label" for="inputEmail">Status</label>
+      <div class="controls">
+        <select name="status" id="inputStatus" class="input-xxlarge">
+          {{html_options options=$statusList}}
+        </select>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="inputComentario">Comentário</label>
+      <div class="controls">
+        <textarea name="comentario" rows="4" id="inputComentario" class="input-xxlarge"></textarea>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <input type="hidden" name="pedidos_id" value="{{$post->id}}">
+      <input type="hidden" name="action" value="SAVE_STATUS">
+      <button type="submit" class="btn btn-small btn-primary">Salvar</button>
+      <button type="button" class="btn btn-small action-status-form-close">Cancelar</button>
+    </div>
+  </form>
+
+	<fieldset>
+    {{if $post->clientes_id}}
+      <legend>Dados do cliente</legend>
+      <dl class="dl-horizontal">
+        <dt class="muted">Nome:</dt>
+        <dd>{{$post->admin_clientes->nome|default:' - '}}</dd>
+        <dt class="muted">Endereço:</dt>
+        <dd>{{$post->admin_clientes->endereco|default:' - '}}</dd>
+        <dt class="muted">Bairro:</dt>
+        <dd>{{$post->admin_clientes->bairro|default:' - '}}</dd>
+      </dl>
+    {{/if}}
+    <legend>Dados do pedido</legend>
+    <dl class="dl-horizontal">
+      <dt class="muted">Pedido:</dt>
+      <dd>{{$post->id|string_format:'%1$04d'}}</dd>
+      <dt class="muted">Status:</dt>
+      <dd {{if $post->status->status eq 'CANCELADO'}}class="text-error"{{/if}}>{{$post->status->status|default:'-'}}</dd>
+      <dt class="muted">Serviços:</dt>
+      <dd>{{$post->servicos_cliente|default:'-'}}</dd>
+      <dt class="muted">Telefone:</dt>
+      <dd>{{$post->telefone_cliente}}</dd>
+      <dt class="muted">E-mail:</dt>
+      <dd>{{$post->email_cliente}}</dd>
+      <dt class="muted">Mensagem:</dt>
+      <dd>{{$post->formulario|nl2br}}</dd>
+      <dt class="muted">Origem:</dt>
+      <dd>{{$post->origem|default:'-'}}</dd>
+      <dt class="muted">Data Envio:</dt>
+      <dd>{{$post->data_envio|date_format:'%d/%m/%Y %H:%M:%S'|default:'-'}}</dd>
+      <dt class="muted">Data Atualização:</dt>
+      <dd>{{$post->data_atualizacao|date_format:'%d/%m/%Y %H:%M:%S'|default:'-'}}</dd>
+    </dl>
+    {{if $post->status->status eq 'PAGO'}}
+      <legend>Dados de Pagamento</legend>
+      <dl class="dl-horizontal">
+        <dt class="muted">Valor:</dt>
+        <dd>R$ {{$post->admin_pagamentos[0]->valor|default:0|number_format:2:",":"."}}</dd>
+        <!--
+        <dt class="muted">Forma de Pagamento:</dt>
+        <dd>{{$post->admin_pagamentos[0]->tipo_pagamento|default:' - '}}</dd>
+        -->
+        <dt class="muted">Data de Pagamento:</dt>
+        <dd>{{$post->admin_pagamentos[0]->data_pagamento|date_format:'%d/%m/%Y %H:%M:%S'|default:'-'}}</dd>
+      </dl>
+    {{/if}}
+
+	</fieldset>
+
+  {{if $post->clientes_id}}
+    <fieldset>
+      <legend class="muted action-status-show">Histórico de status <small>(clique para exibir)</small></legend>
+      {{section name=statusList loop=$post->admin_pedidos_status step=-1}}
+        <blockquote class="hidden">
+          <p {{if not $smarty.section.statusList.first}}class="muted"{{/if}}>{{$post->admin_pedidos_status[statusList]->status}}</p>
+          <small>{{$post->admin_pedidos_status[statusList]->data_atualizacao|date_format:'%d/%m/%Y %H:%M:%S'}}</small>
+          {{if $post->admin_pedidos_status[statusList]->comentario}}
+            <small>{{$post->admin_pedidos_status[statusList]->comentario}}</small>
+          {{/if}}
+        </blockquote>
+      {{sectionelse}}
+        <blockquote class="hidden">
+          <p class="text-error">Nenhum status encontrado</p>
+        </blockquote>
+      {{/section}}
+    </fieldset>
+  {{/if}}
+{{/block}}

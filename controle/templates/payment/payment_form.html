@@ -1,0 +1,62 @@
+{{extends file='../include/_base_login.tpl'}}
+
+{{block name=config}}
+  {{config_load file="default.conf" section="payment"}}
+{{/block}}
+
+{{block name=css}}
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+      pre{
+      	line-height: 5px;
+      }
+    </style>
+{{/block}}
+
+{{block name=body_login}}
+	<ul class="breadcrumb">
+	    <li><span class="divider">/</span></li>
+	    <li><a href="{{#page#}}">Pagamentos</a> <span class="divider">/</span></li>
+	    <li class="active">Formulário</li>
+	</ul>
+
+	<form action="{{#page#}}" method="POST">
+		<div>
+			<label>Pedido em serviço: </label>
+			<select name="pedidos_id">
+				{{html_options options=$orderedList selected=$post->pedidos_id}}
+            </select>
+	
+			<!--
+			<br />
+			<p><label>Informações enviadas para orçamento:</label></p>
+			<pre class="pre-scrollable">
+				<p class="muted"><strong>serviços:</strong> {{$post->servicos_cliente}}</p>
+				<p class="muted"><strong>telefone:</strong> {{$post->telefone_cliente}}</p>
+				<p class="muted"><strong>e-mail:</strong> {{$post->email_cliente}}</p>
+				<p class="muted"><strong>gerado:</strong> {{$post->data_envio}}</p>
+			</pre>
+			-->
+
+			<label>Valor:</label>
+			<div class="input-prepend input-append">
+				<span class="add-on">$</span>
+				<input class="span2" id="appendedPrependedInput" type="text" name="valor" value="{{$post->valor}}">
+				<span class="add-on">.00</span>
+			</div>
+
+		</div>
+		<div class="form-actions">
+			<input type="hidden" name="action" value="SAVE">
+			<button type="submit" class="btn btn-primary">Salvar</button>
+			<button type="button" class="btn" onclick="location.href='{{#page#}}'">Cancelar</button>
+		</div>
+	</form>
+{{/block}}
+	

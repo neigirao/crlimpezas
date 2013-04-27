@@ -1,0 +1,56 @@
+{{extends file='../include/_base_login.tpl'}}
+
+{{block name=config}}
+  {{config_load file="default.conf" section="client"}}
+{{/block}}
+
+{{block name=css}}
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
+{{/block}}
+
+{{block name=body_login}}
+	<ul class="breadcrumb">
+	    <li><span class="divider">/</span></li>
+		<li class="active">Clientes</li>
+		<li class="pull-right">
+			<button type="button" class="btn btn-primary action-add btn-mini">adicionar cliente</button>
+		</li>
+	</ul>
+
+	{{if $post|@count > 0}}
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>E-mail</th>
+					<th>Pedidos</th>
+					<th>Data Cadastro</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{foreach from=$post item=item name=loop}}
+					{{assign var=id value=$item->id_clientes}}
+					<tr data='{"id":{{$id}}}'>
+						<td><a href="{{#page#}}?action=form&id_clientes={{$id}}">{{$item->nome}}</a></td>
+						<td>{{$item->email|default:'-'}}</td>
+						<td>{{$item->site_pedidos|@count}}</td>
+						<td>{{$item->data_cadastro|date_format:'%d/%m/%Y %H:%M:%S'}}</td>
+					</tr>
+				{{/foreach}}
+			</tbody>
+		</table>
+
+		{{assign var=search_more value="search_nome="|cat:$search_nome}}
+	    {{include file="include/_pagination.tpl" search_more=$search_more}}
+	{{else}}
+		<h4>Nenhum resultado encontrado.</h4>
+	{{/if}}
+{{/block}}

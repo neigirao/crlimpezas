@@ -1,0 +1,66 @@
+{{extends file='../include/_base_login.tpl'}}
+
+{{block name=config}}
+  {{config_load file="default.conf" section="ordered"}}
+{{/block}}
+
+{{block name=css}}
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+      pre{
+      	line-height: 4px;
+      }
+      pre .form{
+      	line-height: 13px;
+      }
+    </style>
+{{/block}}
+
+{{block name=body_login}}
+	<ul class="breadcrumb">
+	    <li><span class="divider">/</span></li>
+	    <li><a href="{{#page#}}">Pedidos</a> <span class="divider">/</span></li>
+	    <li class="active">Formulário</li>
+	</ul>
+
+	<form action="{{#page#}}" method="POST">
+		<div>
+			<label>Associe um cliente:</label>
+			<select name="clientes_id">
+				{{html_options options=$clientsList selected=$post->clientes_id}}
+            </select>
+
+			<label>Origem do orçamento:</label>
+			<select name="origem">
+				{{html_options options=$originList selected=$post->origem}}
+            </select>
+
+		</div>
+
+		<br />
+		<p><label>Informações enviadas para orçamento:</label></p>
+		<pre class="pre-scrollable">
+			<p class="muted"><strong>nome:</strong> {{$post->nome_cliente|default:'-'}}</p>
+			<p class="muted"><strong>e-mail:</strong> {{$post->email_cliente}}</p>
+			<p class="muted"><strong>telefone:</strong> {{$post->telefone_cliente}}</p>
+			<p class="muted"><strong>serviços:</strong> {{$post->servicos_cliente|default:'-'}}</p>
+			<p class="muted"><strong>mensagem:</strong></p>
+			<p class="muted form">{{$post->formulario|nl2br}}</p>
+			<p class="muted"><strong>gerado:</strong> {{$post->data_envio|date_format:'%d/%m/%Y %H:%M:%S'}}</p>
+		</pre>
+
+		<div class="form-actions">
+			<input type="hidden" name="id" value="{{$post->id}}">
+			<input type="hidden" name="action" value="SAVE">
+			<button type="submit" class="btn btn-primary">Salvar</button>
+			<button type="button" class="btn" onclick="location.href='report.php?action=noresponse'">Cancelar</button>
+		</div>
+	</form>
+{{/block}}
+	

@@ -1,0 +1,77 @@
+{{extends file='../include/_base_login.tpl'}}
+
+{{block name=config}}
+  {{config_load file="default.conf" section="ordered"}}
+{{/block}}
+
+{{block name=css}}
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
+{{/block}}
+
+{{block name=body_login}}
+	<ul class="breadcrumb">
+	    <li><span class="divider">/</span></li>
+		<li class="active">Pedidos</li>
+	  	<li class="pull-right">
+			<button type="button" class="btn btn-primary disabled btn-mini">adicionar pedido</button>
+		</li>
+	</ul>
+
+	<div class="alert alert-block alert-info">
+	  <button type="button" class="close" data-dismiss="alert">&times;</button>
+	  <h4>Atenção!</h4>
+	  <ol>
+	  	<li>Pedidos exibidos abaixo são orçamentos associados a um <a href="../client/">cliente</a></li>
+	  	<li>Pedidos com status 'PAGO' não são exibidos aqui</li>
+	  </ol>
+	</div>
+
+	<form class="form-search" action="./" method="post">
+		<div class="input-append">
+			<input type="hidden" name="action" value="LIST">
+			<input class="span8" type="text" name="search_id" value="{{$search_id}}" placeholder="número do pedido">
+			<button class="btn" type="submit">Procurar</button>
+		</div>
+	</form>
+
+	{{if $post|@count > 0}}
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Pedido</th>
+					<th>Nome</th>
+					<th>Serviços</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{foreach from=$post item=item name=loop}}
+					{{assign var=id value=$item->id}}
+					<tr data='{"id":{{$id}},"cliente":{{$item->clientes_id}}}'>
+						<td>
+							<a href="ordered.php?action=view&id={{$id}}">
+								{{$item->id|string_format:'%1$04d'}}
+							</a>
+						</td>
+						<td>{{$item->admin_clientes->nome}}</td>
+						<td>{{$item->servicos_cliente|default:'-'}}</td>
+						<td>{{dao->returnLastStatusById id_pedido=$id}}</td>
+					</tr>
+				{{/foreach}}
+			</tbody>
+		</table>
+		{{assign var=search_more value="search_id="|cat:$search_id}}
+	    {{include file="include/_pagination.tpl" search_more=$search_more}}
+	{{else}}
+		<h4>Nenhum resultado encontrado.</h4>
+	{{/if}}
+
+{{/block}}

@@ -1,0 +1,68 @@
+{{extends file='../include/_base_login.tpl'}}
+
+{{block name=config}}
+  {{config_load file="default.conf" section="payment"}}
+{{/block}}
+
+{{block name=css}}
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
+{{/block}}
+
+{{block name=body_login}}
+	<ul class="breadcrumb">
+	    <li><span class="divider">/</span></li>
+		<li class="active">Pagamentos</li>
+		<li class="pull-right">
+			<button type="button" class="btn btn-primary action-add btn-mini">adicionar pagamento</button>
+		</li>
+	</ul>
+
+	<div class="alert alert-block alert-info">
+	  <button type="button" class="close" data-dismiss="alert">&times;</button>
+	  <h4>Atenção!</h4>
+	  <ol>
+	  	<li>Em adicionar pagamentos serão exibidos <a href="../ordered/">pedidos</a> com status 'EM SERVIÇO'</li>
+	  	<li>Pedidos com status 'PAGO' são exibidos abaixo</li>
+	  </ol>
+	</div>
+
+	{{if $post|@count > 0}}
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Pedido</th>
+					<th>Nome</th>
+					<th>Fonte</th>
+					<th>Valor</th>
+					<th>Data Pagamento</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{foreach from=$post item=item name=loop}}
+					{{assign var=id value=$item->id_pagamentos}}
+					<tr data='{"id":{{$id}}}'>
+						<td>
+							<a href="ordered.php?action=view&id={{$item->site_pedidos->id}}">
+								{{$item->site_pedidos->id|string_format:'%1$04d'}}
+							</a>
+						</td>
+						<td>{{$item->site_pedidos->admin_clientes->nome}}</td>
+						<td>{{$item->site_pedidos->origem|default:'-'}}</td>
+						<td>R$ {{$item->valor|number_format:2:",":"."}}</td>
+						<td>{{$item->data_pagamento|date_format:'%d/%m/%Y %H:%M:%S'}}</td>
+					</tr>
+				{{/foreach}}
+			</tbody>
+		</table>
+	{{else}}
+		<h4>Nenhum resultado encontrado.</h4>
+	{{/if}}
+{{/block}}

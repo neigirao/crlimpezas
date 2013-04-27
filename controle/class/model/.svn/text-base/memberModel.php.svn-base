@@ -1,0 +1,19 @@
+<?php
+require(CLASS_DIR . 'exception/ADOException.php');
+require(CLASS_DIR . 'service/memberService.php');
+require(CLASS_DIR . 'dao/conexao.php');
+require(CLASS_DIR . 'dao/memberDao.php');
+require(CLASS_DIR . 'dao/dojoDao.php');
+require(CLASS_DIR . 'dao/logDao.php');
+require(CLASS_DIR . 'model/util.php');
+require(SMARTY_DIR  . 'Smarty.class.php');
+
+// SMARTY CONFIGURATION 
+class MemberModel extends Smarty { 
+	function __construct() {
+		parent::__construct();
+	}
+}
+
+$member =& new memberService;
+?>

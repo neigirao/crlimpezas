@@ -1,0 +1,48 @@
+{{extends file='../include/_base_login.tpl'}}
+
+{{block name=config}}
+  {{config_load file="default.conf" section="client"}}
+{{/block}}
+
+{{block name=css}}
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
+{{/block}}
+
+{{block name=body_login}}
+	<ul class="breadcrumb">
+	    <li><span class="divider">/</span></li>
+	    <li><a href="{{#page#}}">Clientes</a> <span class="divider">/</span></li>
+	    <li class="active">Formulário</li>
+	</ul>
+
+	<form action="{{#page#}}" method="POST">
+		<div>
+			<label>Nome</label>
+			<input class="input-block-level" name="nome" type="text" placeholder="digite o nome" value="{{$post->nome}}">
+			<label>Endereço</label>
+			<input class="input-block-level" name="endereco" type="text" placeholder="digite o endereço" value="{{$post->endereco}}">
+			<label>Bairro</label>
+			<input class="input-block-level" name="bairro" type="text" placeholder="digite o bairro" value="{{$post->bairro}}">
+			<label>Telefone / Celular</label>
+			<input class="input-block-level" name="telefone" type="text" placeholder="digite o telefone ou celular" value="{{$post->telefone}}">
+			<label>E-mail</label>
+			<input class="input-block-level" name="email" type="text" placeholder="digite o e-mail" value="{{$post->email}}">
+		</div>
+
+		<div class="form-actions">
+			<input type="hidden" name="data_cadastro" value="{{$post->data_cadastro}}">
+			<input type="hidden" name="id_clientes" value="{{$post->id_clientes}}">
+			<input type="hidden" name="action" value="SAVE">
+			<button type="submit" class="btn btn-primary">Salvar</button>
+			<button type="button" class="btn" onclick="location.href='{{#page#}}'">Cancelar</button>
+		</div>
+	</form>
+{{/block}}

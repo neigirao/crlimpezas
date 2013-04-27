@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/bujinkan/!svn/ver/75/trunk/2012/class/exception
+END
+MySQLException.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/bujinkan/!svn/ver/75/trunk/2012/class/exception/MySQLException.php
+END
+ADOException.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/bujinkan/!svn/ver/75/trunk/2012/class/exception/ADOException.php
+END

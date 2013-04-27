@@ -375,8 +375,8 @@
     		  	$('.preencher',$self).hide();
             $(".alert").remove();
             $("form").prepend(msg_sucess);
-    		    _gaq.push(['_addTrans', data.pedido, data.email, '1.00', '0.00', '0.00', 'Rio de Janeiro', 'Rio de Janeiro', 'Brazil']);
-      			_gaq.push(['_addItem', data.pedido, data.email, '', 'Orcamento', '1.00', '1']);
+            _gaq.push(['_addTrans', data.pedido, 'Contato', '1.00', '0.00', '0.00', 'Rio de Janeiro', 'Rio de Janeiro', 'Brazil']);
+            _gaq.push(['_addItem', data.pedido, data.pedido, data.pedido + ' | ', 'Orcamento', '1.00', '1']);
       			_gaq.push(['_trackTrans']);
     		  },
     		  error: function(event, jqXHR, ajaxSettings, thrownError) {

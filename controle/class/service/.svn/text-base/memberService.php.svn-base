@@ -1,0 +1,94 @@
+<?php
+/**
+ * @author Thiago Pio
+ */
+class MemberService {
+
+    public $sql = null; # DATABASE 
+    public $tpl = null; # SMART TEMPLATE  
+    public $service = null; 
+    private $folder = 'member';
+
+    function __construct() {
+        $this->sql =& new MemberDao;
+        $this->tpl =& new MemberModel;
+        $this->service = $this;
+	    $this->util =& new util;
+    }
+    
+    function showPage($dados = array()) {
+        $this->tpl->assign('post', $dados);
+        $this->tpl->display($this->folder.'/member.html'); 
+        $this->util->clearCookies();
+        exit();
+    }
+    
+    function showForm($dados = array()) {
+    	$dojoDao = new dojoDao();
+    	$dojoList = $dojoDao->findAll();
+    	if(!empty($this->sql->id_membro))
+    		$this->sql->loadId();
+    	$this->tpl->assign('week', $this->util->getWeek());
+    	$this->tpl->assign('gender', $this->util->getGender());
+    	$this->tpl->assign('graduation', $this->util->getGraduation(-4));
+    	$this->tpl->assign('dojo', $this->util->listToSelect($dojoList, array('id_dojo','nome_dojo')));
+    	$this->tpl->assign('status', $this->util->getStatus());
+        $this->tpl->assign('post', $this->sql);
+        $this->tpl->display($this->folder.'/member_form.html'); 
+        $this->util->clearCookies();
+        exit();
+    }
+    
+    function showView() {
+    	$this->sql->loadId();
+        $this->tpl->assign('post', $this->sql);
+        $this->tpl->display($this->folder.'/member_view.html'); 
+        $this->util->clearCookies();
+        exit();
+    }
+    
+    function redirect($search) {
+    	$search = !empty($search) ? base64_decode($search) : '';
+    	header('Location: member.php' . '?' . $search);
+    	exit();
+    }
+    
+    function setSearch($post, $get){
+    	$fields_search = array('search_nome','page');
+    	$request = array_merge($post,$get);
+    	foreach ($request as $campo => $valor){
+    		if(in_array($campo, $fields_search) && !empty($valor))
+    			$search[$campo] = $valor;
+    	}
+    	$search['page'] = (isset($search['page']) ? $search['page'] : 1);
+    	return (empty($search) ? array() : $search);
+    }
+    
+    function delete() {
+    	$this->sql->loadId();
+        return $this->sql->Delete();
+    }
+    
+    function save(){
+    	$this->sql->saveDao();
+    	return true;
+    }
+    
+    function validateForm() {
+        if(strlen($this->sql->nome) == 0) {
+            $_SESSION['alert'] = 'Nome n&atilde;o pode ser vazio.';
+            return false; 
+        }
+        if(empty($this->sql->sexo)) {
+            $_SESSION['alert'] = 'Esqueceu de selecionar o sexo.';
+            return false; 
+        }
+        if(empty($this->sql->graduacao)) {
+            $_SESSION['alert'] = 'Esqueceu de selecionar a gradua&ccedil;&atilde;o.';
+            return false; 
+        }
+        return true;
+    }
+}
+
+?>

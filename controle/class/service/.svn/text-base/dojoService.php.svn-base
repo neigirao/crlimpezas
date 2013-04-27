@@ -1,0 +1,128 @@
+<?php
+/**
+ * @author Thiago Pio
+ */
+class DojoService {
+
+    public $sql = null; # DATABASE  
+    public $tpl = null; # SMART TEMPLATE 
+    public $service = null; 
+    private $folder = 'dojo';
+
+    function __construct() {
+        $this->sql =& new DojoDao;
+        $this->tpl =& new DojoModel;
+        $this->service = $this;
+	    $this->util =& new util;
+    }
+    
+    function showPage($dados = array()) {
+        $this->tpl->assign('post', $dados);
+        $this->tpl->display($this->folder.'/dojo.html'); 
+        $this->util->clearCookies();
+        exit();
+    }
+    
+    function showForm($dados = array()) {
+    	if(!empty($this->sql->id_dojo))
+    		$this->sql->loadId();
+//    	$this->tpl->register_function('getWeekSmarty',$this->util->getWeekSmarty);
+//		$access->tpl->register_object("util",$util,array('weekBR','params'));
+    	$this->tpl->assign('memberExample', $this->util->getMemberExample());
+    	$this->tpl->assign('responsibleType', $this->util->getResponsibleType());
+    	$this->tpl->assign('week', $this->util->getWeek());
+    	$this->tpl->assign('status', $this->util->getStatus());
+        $this->tpl->assign('post', $this->sql);
+        $this->tpl->display($this->folder.'/dojo_form.html'); 
+        $this->util->clearCookies();
+        exit();
+    }
+    
+    function showView() {
+    	$this->sql->loadId();
+        $this->tpl->assign('post', $this->sql);
+        $this->tpl->display($this->folder.'/dojo_view.html'); 
+        $this->util->clearCookies();
+        exit();
+    }
+    
+    function redirect() {
+    	header('Location: dojo.php');
+    	exit();
+    }
+    
+    function setSearch($post, $get){
+    	$fields_search = array('search_nome_dojo','search_uf');
+    	$request = array_merge($post,$get);
+    	foreach ($request as $campo => $valor){
+    		if(in_array($campo, $fields_search) && !empty($valor))
+    			$search[$campo] = $valor;
+    	}
+    	return $search;
+    }
+    
+    function delete() {
+    	$this->sql->loadId();
+    	foreach($this->sql->dojo_responsavel as $dojoResponsavel){
+    		$dojoResponsavel->Delete();
+    	}
+    	foreach($this->sql->dojo_horario as $dojoHorario){
+    		$dojoHorario->Delete();
+    	}
+        return $this->sql->Delete();
+    }
+    
+    function save($dojoResponsavelList, $dojoHorarioList){
+    	
+    	$this->sql->saveDao();
+    	
+    	# LOOP RESPONSAVEl
+		$qtdDojoResponsavel = sizeof($dojoResponsavelList->responsavel_id);
+		for($i=0; $i < $qtdDojoResponsavel; $i++){
+			$dojoResponsavel = new DojoResponsavelDao();
+			if($dojoResponsavelList->id_dojo_responsavel[$i] > 0){
+				$dojoResponsavel->id_dojo_responsavel = $dojoResponsavelList->id_dojo_responsavel[$i];
+				$dojoResponsavel->Load('id_dojo_responsavel = ?', $dojoResponsavel->id_dojo_responsavel);
+			}
+			$dojoResponsavel->tipo_responsavel = $dojoResponsavelList->tipo_responsavel[$i];
+			$dojoResponsavel->responsavel_id = $dojoResponsavelList->responsavel_id[$i];
+			$dojoResponsavel->dojo_id = $this->sql->id_dojo;
+			if(!$dojoResponsavel->Save()){
+				return false;
+			}
+		}
+		
+		# LOOP HORARIO
+		$qtdDojoHorario = sizeof($dojoHorarioList->dia_semana);
+		for($i=0; $i < $qtdDojoHorario; $i++){
+			$dojoHorario = new DojoHorarioDao();
+			if($dojoHorarioList->id_dojo_horario[$i] > 0){
+				$dojoHorario->id_dojo_horario = $dojoHorarioList->id_dojo_horario[$i];
+				$dojoHorario->Load('id_dojo_horario = ?', $dojoHorario->id_dojo_horario);
+			}
+			$dojoHorario->dia_semana = $dojoHorarioList->dia_semana[$i];
+			$dojoHorario->inicio = $dojoHorarioList->inicio[$i];
+			$dojoHorario->fim = $dojoHorarioList->fim[$i];
+			$dojoHorario->dojo_id = $this->sql->id_dojo;
+			if(!$dojoHorario->Save()){
+				return false;
+			}
+		}
+    	return true;
+    }
+    
+    function validateForm() {
+    	// transformar em json
+        if(strlen($this->sql->nome_dojo) == 0) {
+            $_SESSION['alert'] = 'nome_dojo nao pode ser vazio';
+            return false; 
+        }
+        if(strlen($this->sql->nome_local) == 0) {
+            $_SESSION['alert'] = 'nome_local nao pode ser vazio';
+            return false; 
+        }
+        return true;
+    }
+}
+
+?>

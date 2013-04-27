@@ -277,10 +277,88 @@ Depois de finalizado a <strong>lavagem de sofá a seco</strong>, aconselhamos ma
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap-collapse.js"></script>
     <script src="js/bootstrap-carousel.js"></script>
-    <script>
-      $('.carousel').carousel({
-        interval: 4000
-      })
+    <script src="js/bootstrap-alert.js"></script>
+    <script type="text/javascript">
+
+      var msg_sucess = ['<div class="alert alert-success">',
+                        '<button type="button" class="close" data-dismiss="alert">×</button>',
+                        '<h4>Enviado com sucesso!</h4>',
+                        'Obrigado pela sua mensagem. Retornaremos o seu contato em até 48 horas. ',
+                        '</div>'].join('');
+      var msg_alert = ['<div class="alert alert-block">',
+                      '<button type="button" class="close" data-dismiss="alert">×</button>',
+                      '<p>Favor preencher todos os campos e selecionar pelo menos um "Tipo de serviço".</p>',
+                      '</div>'].join('');
+      var msg_error = ['<div class="alert alert-error">',
+                      '<button type="button" class="close" data-dismiss="alert">×</button>',
+                      '<strong>Ops!</strong> Servidores sobrecarregados. Tente o contato pelos telefones no final da página.',
+                      '</div>'].join('');
+
+      var existeCampoNaoPreenchido = function($form){
+        if ($.trim($("input[name=nome]",$form).val()) == '') {
+          _gaq.push(['_trackEvent', 'Erro', 'Formulario Landing Sofa', 'Campo Nome']);
+          return true;
+        } else if ($.trim($("input[name=email]",$form).val()) == '') {
+          _gaq.push(['_trackEvent', 'Erro', 'Formulario Landing Sofa', 'Campo Email']);
+          return true;
+        } else if ($.trim($("input[name=telefone]",$form).val()) == '') {
+          _gaq.push(['_trackEvent', 'Erro', 'Formulario Landing Sofa', 'Campo Telefone']);
+          return true;
+        } else if ($.trim($("textarea[name=msg]",$form).val()) == '') {
+          _gaq.push(['_trackEvent', 'Erro', 'Formulario Landing Sofa', 'Campo Mensagem']);
+          return true;
+        } else {
+          var algum_marcado = false;
+          $("input[type=checkbox]",$form).each(function(index,element){
+            if (element.checked) {
+              algum_marcado = true;
+            }
+          });
+          if (!algum_marcado) {
+            _gaq.push(['_trackEvent', 'Erro', 'Formulario Landing Sofa', 'Campo Serviços']);
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+
+      $('form').submit(function() {
+        $self = $(this);
+        if (existeCampoNaoPreenchido($self)) {
+          $(".alert").remove();
+          $("form").prepend(msg_alert);
+          return false;
+        }
+        var formulario = $self.serialize();
+        var position = document.cookie.indexOf("__utmz=");
+        var source = document.cookie.substr(position);
+        formulario += "&ga=" + source;
+        $.ajax({
+          type: 'POST',
+          url: 'envio.php',
+          data: formulario,
+          success: function(response) {
+            var data = jQuery.parseJSON(response);
+            $self[0].reset();
+            $('.preencher',$self).hide();
+            $(".alert").remove();
+            $("form").prepend(msg_sucess);
+            _gaq.push(['_addTrans', data.pedido, 'Landing Page', '1.00', '0.00', '0.00', 'Rio de Janeiro', 'Rio de Janeiro', 'Brazil']);
+            _gaq.push(['_addItem', data.pedido, data.pedido, data.pedido + ' | ', 'Orcamento', '1.00', '1']);
+            _gaq.push(['_trackTrans']);
+          },
+          error: function(event, jqXHR, ajaxSettings, thrownError) {
+            _gaq.push(['_trackEvent', 'Erro', 'Formulario Landing Sofa', 'Enviar']);
+            $(".alert").remove();
+            $("form").prepend(msg_error);
+          }
+        });
+        return false;
+      });
+
+      $('.carousel').carousel();
+
   	  var _gaq = _gaq || [];
   	  _gaq.push(['_setAccount', 'UA-36923842-1']);
   	  _gaq.push(['_setDomainName', 'crlimpezas.com.br']);

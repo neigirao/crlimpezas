@@ -1,0 +1,69 @@
+<?php
+/**
+ * @author Thiago Pio
+ */
+class UserService {
+
+    public $sql = null; # DATABASE 
+    public $tpl = null; # SMART TEMPLATE  
+    public $service = null; 
+    private $folder = '';
+
+    function __construct() {
+        $this->sql =& new UserDao;
+        $this->tpl =& new UserModel;
+        $this->service = $this;
+	    $this->util =& new util;
+    }
+    
+    function showPage($dados = array()) {
+        $this->tpl->assign('post', $dados);
+        $this->tpl->display('index.html'); 
+        $this->util->clearCookies();
+        exit();
+    }
+    
+    function showForm($dados = array()) {
+    	$dojoDao = new dojoDao();
+    	$dojoList = $dojoDao->findAll();
+    	if(!empty($this->sql->id_membro))
+    		$this->sql->loadId();
+    	$this->tpl->assign('week', $this->util->getWeek());
+    	$this->tpl->assign('gender', $this->util->getGender());
+    	$this->tpl->assign('graduation', $this->util->getGraduation(-4));
+    	$this->tpl->assign('dojo', $this->util->listToSelect($dojoList, array('id_dojo','nome_dojo')));
+    	$this->tpl->assign('status', $this->util->getStatus());
+        $this->tpl->assign('post', $this->sql);
+        $this->tpl->display($this->folder.'/member_form.html'); 
+        $this->util->clearCookies();
+        exit();
+    }
+    
+    function showView() {
+    	$this->sql->loadId();
+        $this->tpl->assign('post', $this->sql);
+        $this->tpl->display($this->folder.'/member_view.html'); 
+        $this->util->clearCookies();
+        exit();
+    }
+    
+    function redirect($search) {
+    	$search = !empty($search) ? base64_decode($search) : '';
+    	header('Location: member.php' . '?' . $search);
+    	exit();
+    }
+    
+    function validateForm() {
+        if(strlen($this->sql->usuario) == 0) {
+            $_SESSION['alert'] = '&Uacute;suario n&atilde;o pode ser vazio.';
+            return false; 
+        }
+        if(empty($this->sql->senha)) {
+            $_SESSION['alert'] = 'Senha n&atilde;o pode ser vazia.';
+            return false; 
+        }
+        return true;
+    }
+}
+
+?>
