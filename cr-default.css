@@ -96,7 +96,16 @@
       letter-spacing: -1px;
     }
 
-
+    .marketing .span4, .desc {
+      text-align: center;
+    }
+    .marketing h2 {
+      font-weight: normal;
+    }
+    .marketing .span4 p {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
 
     /* RESPONSIVE CSS
     -------------------------------------------------- */
@@ -145,3 +154,5 @@
       }
 
     }
+
+    
