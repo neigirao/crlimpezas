@@ -355,11 +355,10 @@
           A higienização dos estofados é realizada no próprio ambiente do cliente, sem modificar a localização dos móveis.
           Nossa equipe especializada analisa os estofados, esclarece as possibilidades de retirada das manchas e ainda orienta aos clientes como obter uma boa conservação dos estofados.
         </p>
-        <p>A equipe CR Serviços de Limpeza realiza <strong>lavagem de sofá</strong> para residências, condomínios, lojas, clínicas, hospitais, empresas e comércio em geral. Buscamos sempre atender com agilidade, eficiência e confiança a todos os clientes que depositam em nós sua confiança ao solicitar os serviços da nossa empresa de <strong>lavagem de sofá</strong>. Visando sempre o bom atendimento e a satisfação dos clientes.</p>
-        <p>Conte com nossa empresa de <strong>lavagem de sofá </strong>e tenha a certeza de adquirir o melhor serviço do mercado. Removemos o pó, ácaros e sujeiras em geral. Proporcionando um aspecto renovado do seu estofado.</p>
-        <p>Nosso serviço de <strong>lavagem de sofá a seco</strong> é feito com um sistema de <strong>lavagem a seco</strong>, ocasionando alto poder de limpeza, higienização e lavagem de sofá a seco sete vezes maior que os sistemas convencionais, utilizamos máquinas para <strong>lavagem a seco de estofados</strong>, com um alto poder de remoção da sujidade impregnada no estofado, aliado ao eficiente sistema a vácuo, resultando em uma remoção completa da sujidade com a lavagem de sofá a seco DREAM WASH.
-
-Depois de finalizado a lavagem de sofá a seco, aconselhamos manter uma boa manutenção preventiva, assim você estará contribuindo para um melhor estilo de vida dos usuários.</p>
+        <p class="lead">A equipe CR Serviços de Limpeza realiza <strong>lavagem de sofá</strong> para residências, condomínios, lojas, clínicas, hospitais, empresas e comércio em geral. Buscamos sempre atender com agilidade, eficiência e confiança a todos os clientes que depositam em nós sua confiança ao solicitar os serviços da nossa empresa de <strong>lavagem de sofá</strong>. </p>
+        
+        <p class="lead">Nosso serviço de <strong>lavagem de sofá a seco</strong> é feito com um sistema de <strong>lavagem a seco</strong>, ocasionando alto poder de limpeza, higienização e lavagem de sofá a seco sete vezes maior que os sistemas convencionais, utilizamos máquinas para <strong>lavagem a seco de estofados</strong>, com um alto poder de remoção da sujidade impregnada no estofado, aliado ao eficiente sistema a vácuo, resultando em uma remoção completa da sujidade com a <strong>lavagem de sofá a seco </strong>.
+Depois de finalizado a <strong>lavagem de sofá a seco</strong>, aconselhamos manter uma boa manutenção preventiva, assim você estará contribuindo para um melhor estilo de vida dos usuários.</p>
         
         <p class="lead"><span class="muted"> Faça seu pedido de orçamento agora:</span></p>
        <form name="contato" action="#" method="post">
