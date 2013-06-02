@@ -1,0 +1,1 @@
+mysqldump -h mysql01.crlimpezas.hospedagemdesites.ws -u crlimpezas -pXXXX_XXXXXX crlimpezas > YYYY-MM-DD.sql --insert-ignore -cv
