@@ -1,11 +1,12 @@
 <?php
 DEFINE('LOCAL_DEBUG', false);
 $email = 'comercial@crlimpezas.com.br';
-$emailcopia = 'thiago@businesstarget.com.br;nei@businesstarget.com.br;caiorios4@hotmail.com';
+#$emailcopia = 'thiago@businesstarget.com.br;nei@businesstarget.com.br;caiorios4@hotmail.com';
+$emailoculto = 'caiorios4@hotmail.com';
 
 /* Verifica qual é o sistema operacional do servidor para ajustar o cabeçalho de forma correta. Não alterar */
 if(PATH_SEPARATOR == ";") $quebra_linha = "\n"; //Se for Windows
-else $quebra_linha = "\n"; //Se "não for Windows"
+else $quebra_linha = "\r\n"; //Se "não for Windows"
 
 if (!empty($_POST['nome']) && !empty($_POST['email'])) {
 
@@ -59,8 +60,9 @@ if (!empty($_POST['nome']) && !empty($_POST['email'])) {
 
   $headers = "MIME-Version: 1.1" .$quebra_linha;
   $headers .= "Content-type: text/html; charset=UTF-8" .$quebra_linha;
-  $headers .= "From: " . $email . $quebra_linha;
-  $headers .= "Cc: " . $emailcopia . $quebra_linha;
+  $headers .= "From: " . $emailvisitante . $quebra_linha;
+  #$headers .= "Cc: " . $emailcopia . $quebra_linha;
+  $headers .= "Bcc: " . $emailoculto . $quebra_linha;
   $headers .= "Reply-To: " . $emailvisitante . $quebra_linha;
   // Note que o e-mail do remetente será usado no campo Reply-To (Responder Para)
 
