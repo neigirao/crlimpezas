@@ -24,17 +24,20 @@ if (!empty($_POST['nome']) && !empty($_POST['email'])) {
   // Save mesage BD
   if(!LOCAL_DEBUG){
     $sql = "INSERT INTO site_pedidos (nome_cliente,email_cliente,servicos_cliente,telefone_cliente,formulario,analytics,data_envio) VALUES ('$nome','$emailvisitante','$servicos','$telefone','$comentarios','$ga','$data')";
-    $con = mysql_connect("mysql01.crlimpezas.hospedagemdesites.ws","crlimpezas","caio_pedido");
+    #$con = mysql_connect("mysql01.crlimpezas.hospedagemdesites.ws","crlimpezas","caio_pedido");
+    $con = mysql_connect("localhost","busines1_crnovo","aBJ=JIhpSzwa");
+    $database = 'busines1_cr_limpezas';
   }else{
     $sql = "INSERT INTO site_pedidos (nome_cliente,email_cliente,servicos_cliente,telefone_cliente,formulario,analytics,data_envio)";
     $sql .=  " VALUES ('$nome','$emailvisitante','$servicos','$telefone','$comentarios','$ga','$data')";
     $con = mysql_connect("localhost","root","");
+    $database = 'crlimpezas';
   }
   if (!$con){
     header('HTTP/1.1 500 Internal Server Error');
     die('Could not connect: ' . mysql_error());
   }
-  mysql_select_db("crlimpezas", $con);
+  mysql_select_db($database, $con);
   if (!mysql_query($sql,$con)){
     header('HTTP/1.1 500 Internal Server Error');
     die('Error: ' . mysql_error());
