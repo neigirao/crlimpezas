@@ -2,7 +2,7 @@
 DEFINE('LOCAL_DEBUG', false);
 $email = 'comercial@crlimpezas.com.br';
 #$emailcopia = 'thiago@businesstarget.com.br;nei@businesstarget.com.br;caiorios4@hotmail.com';
-$emailoculto = 'caiorios4@hotmail.com; neigirao@gmail.com';
+$emailoculto = 'caiorios4@hotmail.com,neigirao@gmail.com';
 
 /* Verifica qual é o sistema operacional do servidor para ajustar o cabeçalho de forma correta. Não alterar */
 if(PATH_SEPARATOR == ";") $quebra_linha = "\n"; //Se for Windows
