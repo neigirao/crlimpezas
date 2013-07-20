@@ -48,7 +48,7 @@
 				{{foreach from=$post item=item name=loop}}
 					{{assign var=id value=$item->id}}
 					<tr>
-						<td><a href="ordered.php?action=view&id={{$id}}">{{$item->id|string_format:'%1$04d'}}</a>}</td>
+						<td><a href="ordered.php?action=view&id={{$id}}">{{$item->id|string_format:'%1$04d'}}</a></td>
 						<td>{{$item->nome_cliente}}</td>
 						<td>{{$item->email_cliente}}</td>
 						<td>{{dao->returnLastStatusById id_pedido=$id}}</td>

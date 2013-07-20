@@ -19,8 +19,8 @@ Class Conexao {
         
 		$this->db->debug = 0;
 
-        #$this->db->PConnect('localhost', 'root', '', 'crlimpezas');
-        $this->db->PConnect('localhost', 'busines1_crnovo', 'aBJ=JIhpSzwa', 'busines1_cr_limpezas');
+        $this->db->PConnect('localhost', 'root', '', 'crlimpezas');
+        #$this->db->PConnect('localhost', 'busines1_crnovo', 'aBJ=JIhpSzwa', 'busines1_cr_limpezas');
         #$this->db->PConnect('mysql01.crlimpezas.hospedagemdesites.ws', 'crlimpezas', 'caio_pedido', 'crlimpezas');
 		
         if($this->db->ErrorMsg() != ''){

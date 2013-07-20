@@ -51,8 +51,8 @@
 					{{assign var=id value=$item->id}}
 					<tr data='{"id":{{$id}}}'>
 						<td><a href="ordered.php?action=view&id={{$id}}">{{$item->id|string_format:'%1$04d'}}</a></td>
-						<td>{{$item->nome_cliente}}</td>
-						<td>{{$item->email_cliente}}</td>
+						<td>{{$item->nome_cliente|truncate:25:"...":true}}</td>
+						<td>{{$item->email_cliente|truncate:30:"...":true}}</td>
 						<td>{{$item->data_envio|date_format:'%d/%m/%Y %H:%M:%S'}}</td>
 						<td>
 							<button class="btn btn-success btn-small action-form">associar</button>
