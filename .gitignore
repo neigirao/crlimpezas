@@ -15,6 +15,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
+admin/templates_c
 
 # External tool builders
 .externalToolBuilders/
